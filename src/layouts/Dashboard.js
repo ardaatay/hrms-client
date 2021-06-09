@@ -1,10 +1,10 @@
 import React from "react";
-import SystemPersonnelDashboard from "./systemPersonnel/SystemPersonnelDashboard";
+import JobSeekerDashboard from "./jobSeeker/JobSeekerDashboard";
 
 export default function Dashboard() {
     return (
         <div>
-            <SystemPersonnelDashboard />
+            <JobSeekerDashboard />
         </div>
     );
 }

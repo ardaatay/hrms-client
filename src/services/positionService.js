@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export default class PositionService {
-    baseUrl = "http://localhost:8080/api";
+const baseUrl = "http://localhost:8080/api";
 
+export default class PositionService {
     getPositions() {
-        return axios.get(this.baseUrl + "/positions/getdropdown");
+        return axios.get(baseUrl + "/positions/getdropdown");
     }
 }
