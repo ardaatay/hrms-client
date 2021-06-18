@@ -7,7 +7,7 @@ const iconPath = process.env.PUBLIC_URL + "/assets/";
 export default function SystemPersonnelNavi() {
     return (
         <div>
-            <Menu inverted fixed="top">
+            <Menu inverted>
                 <Container>
                     <Menu.Item>
                         <img src={`${iconPath}avengers64px.png`} alt="logo" />

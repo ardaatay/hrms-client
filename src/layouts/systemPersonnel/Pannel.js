@@ -1,14 +1,43 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
+import { NavLink } from "react-router-dom";
+import { Dropdown, Menu } from "semantic-ui-react";
 
-export default function Pannel() {
+export default function MenuExampleSubMenu() {
     return (
-        <div>
-            <Menu pointing vertical>
-                <Menu.Item name="home" />
-                <Menu.Item name="messages" />
-                <Menu.Item name="friends" />
-            </Menu>
-        </div>
+        <Menu vertical>
+            <Dropdown item text="Position">
+                <Dropdown.Menu>
+                    <Dropdown.Item
+                        as={NavLink}
+                        to="/admin/position/add"
+                        icon="edit"
+                        text="Add Position"
+                    />
+                    <Dropdown.Item
+                        as={NavLink}
+                        to="/admin/position/list"
+                        icon="list"
+                        text="List Position"
+                    />
+                </Dropdown.Menu>
+            </Dropdown>
+
+            <Dropdown item text="Work Way">
+                <Dropdown.Menu>
+                    <Dropdown.Item
+                        as={NavLink}
+                        to="/admin/workway/add"
+                        icon="edit"
+                        text="Add Work Way"
+                    />
+                    <Dropdown.Item
+                        as={NavLink}
+                        to="/admin/workway/list"
+                        icon="list"
+                        text="List Work Way"
+                    />
+                </Dropdown.Menu>
+            </Dropdown>
+        </Menu>
     );
 }

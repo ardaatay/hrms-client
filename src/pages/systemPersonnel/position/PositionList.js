@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "semantic-ui-react";
-import PositionService from "../../services/positionService";
+import PositionService from "../../../services/positionService";
 
 export default function PositionList() {
     const [positions, setPositions] = useState([]);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import {
     Button,
     Container,
@@ -51,7 +52,7 @@ export default function Banner() {
                                     <Icon name="file" />
                                     Add New Resume
                                 </Header>
-                                <Button primary>Create</Button>
+                                <Button as={NavLink} to="/jobseeker/resume/add" primary>Create</Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

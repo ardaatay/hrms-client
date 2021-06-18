@@ -1,11 +1,9 @@
 import React from "react";
 import Banner from "./Banner";
-import JobSeekerNavi from "./JobSeekerNavi";
 
-export default function JobSeekerDashboard() {
+export default function JobSeekerMain() {
     return (
         <div>
-            <JobSeekerNavi />
             <Banner />
         </div>
     );
