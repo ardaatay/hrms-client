@@ -7,8 +7,20 @@ export default class ResumeService {
         return axios({
             method: "post",
             url: baseUrl + "/resumes/add",
-            headers: {},
+            headers: { "content-type": "text/json" },
             data: resume,
+        });
+    }
+
+    getResumesByJobSeekerId(jobSeekerId) {
+        return axios.get(baseUrl + "/resumes/getresumesbyjobseekerid", {
+            params: { jobSeekerId },
+        });
+    }
+
+    getResumeById(id) {
+        return axios.get(baseUrl + "/resumes/getresumebyid", {
+            params: { id },
         });
     }
 }

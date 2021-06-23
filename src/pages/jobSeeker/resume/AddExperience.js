@@ -1,10 +1,14 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Button, Form, Container } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import ExperienceService from "../../../services/experienceService";
+import { updateCount } from "../../../store/actions/updateAction";
 
-export default function AddExperience() {
+export default function AddExperience(params) {
+    const dispatch = useDispatch();
+
     let experience = {};
 
     const validate = (values) => {
@@ -34,7 +38,6 @@ export default function AddExperience() {
             position: "",
             startYear: 0,
             finishYear: 0,
-            resumeId: 0,
         },
         validate,
         onSubmit: (values) => {
@@ -44,76 +47,77 @@ export default function AddExperience() {
                 position: values.position,
                 startYear: values.startYear,
                 finishYear: values.finishYear,
-                resumeId:values.resumeId,
+                resumeId: params.resumeId,
             };
             experienceService
                 .postExperience(experience)
-                .then((result) => toast.success(result.data.message));
+                .then(function (result) {
+                    toast.success(result.data.message);
+                    dispatch(updateCount(1));
+                });
         },
     });
 
     return (
         <div>
-            <Container className="main">
-                <Form onSubmit={formik.handleSubmit}>
-                    <Form.Field>
-                        <label>Ad</label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            placeholder="Ad"
-                            onChange={formik.handleChange}
-                            value={formik.values.name}
-                        />
-                        {formik.errors.name ? (
-                            <div>{formik.errors.name}</div>
-                        ) : null}
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Pozisyon</label>
-                        <input
-                            id="position"
-                            name="position"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.position}
-                        />
-                        {formik.errors.position ? (
-                            <div>{formik.errors.position}</div>
-                        ) : null}
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Başlama Zamanı</label>
-                        <input
-                            id="startYear"
-                            name="startYear"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.startYear}
-                        />
-                        {formik.errors.startYear ? (
-                            <div>{formik.errors.startYear}</div>
-                        ) : null}
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Ayrılış Zamanı</label>
-                        <input
-                            id="finishYear"
-                            name="finishYear"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.finishYear}
-                        />
-                        {formik.errors.finishYear ? (
-                            <div>{formik.errors.finishYear}</div>
-                        ) : null}
-                    </Form.Field>
-                    <Button type="submit" primary>
-                        Kaydet
-                    </Button>
-                </Form>
-            </Container>
+            <Form onSubmit={formik.handleSubmit}>
+                <Form.Field>
+                    <label>Ad</label>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Ad"
+                        onChange={formik.handleChange}
+                        value={formik.values.name}
+                    />
+                    {formik.errors.name ? (
+                        <div>{formik.errors.name}</div>
+                    ) : null}
+                </Form.Field>
+                <Form.Field>
+                    <label>Pozisyon</label>
+                    <input
+                        id="position"
+                        name="position"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.position}
+                    />
+                    {formik.errors.position ? (
+                        <div>{formik.errors.position}</div>
+                    ) : null}
+                </Form.Field>
+                <Form.Field>
+                    <label>Başlama Zamanı</label>
+                    <input
+                        id="startYear"
+                        name="startYear"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.startYear}
+                    />
+                    {formik.errors.startYear ? (
+                        <div>{formik.errors.startYear}</div>
+                    ) : null}
+                </Form.Field>
+                <Form.Field>
+                    <label>Ayrılış Zamanı</label>
+                    <input
+                        id="finishYear"
+                        name="finishYear"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.finishYear}
+                    />
+                    {formik.errors.finishYear ? (
+                        <div>{formik.errors.finishYear}</div>
+                    ) : null}
+                </Form.Field>
+                <Button type="submit" primary>
+                    Kaydet
+                </Button>
+            </Form>
         </div>
     );
 }

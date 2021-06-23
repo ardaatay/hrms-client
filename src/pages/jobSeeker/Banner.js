@@ -52,7 +52,7 @@ export default function Banner() {
                                     <Icon name="file" />
                                     Add New Resume
                                 </Header>
-                                <Button as={NavLink} to="/jobseeker/resume/add" primary>Create</Button>
+                                <Button as={NavLink} to="/jobseeker/resumes/add" primary>Create</Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
