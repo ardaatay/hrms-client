@@ -9,7 +9,6 @@ import {
     Button,
     Grid,
 } from "semantic-ui-react";
-import { useSelector } from 'react-redux'
 import ResumeService from "../../../services/resumeService";
 import AddAbility from "./AddAbility";
 import AddExperience from "./AddExperience";
@@ -24,8 +23,9 @@ export default function ResumeDetails() {
     const [openSchool, setOpenSchool] = useState(false);
     const [openLanguage, setOpenLanguage] = useState(false);
     const [resume, getResume] = useState({});
+    const [count, setCount] = useState(0);
 
-    const { count } = useSelector(state => state.update);
+    //const { count } = useSelector(state => state.update);
 
     useEffect(() => {
         let resumeService = new ResumeService();
@@ -33,6 +33,10 @@ export default function ResumeDetails() {
             .getResumeById(id)
             .then((result) => getResume(result.data.data));
     }, [id, count]);
+
+    function handleCount() {
+        setCount(count + 1);
+    }
 
     return (
         <div>
@@ -76,7 +80,10 @@ export default function ResumeDetails() {
                                     content="Yetenek Ekle"
                                 />
                                 <Modal.Content>
-                                    <AddAbility />
+                                    <AddAbility
+                                        resumeId={id}
+                                        update={handleCount}
+                                    />
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
@@ -131,7 +138,10 @@ export default function ResumeDetails() {
                                     content="Deneyim Ekle"
                                 />
                                 <Modal.Content>
-                                    <AddExperience resumeId={id} />
+                                    <AddExperience
+                                        resumeId={id}
+                                        update={handleCount}
+                                    />
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
@@ -190,7 +200,10 @@ export default function ResumeDetails() {
                             >
                                 <Header icon="keyboard" content="Okul Ekle" />
                                 <Modal.Content>
-                                    <AddSchool />
+                                    <AddSchool
+                                        resumeId={id}
+                                        update={handleCount}
+                                    />
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
@@ -250,7 +263,10 @@ export default function ResumeDetails() {
                             >
                                 <Header icon="keyboard" content="Dil Ekle" />
                                 <Modal.Content>
-                                    <AddLanguage />
+                                    <AddLanguage
+                                        resumeId={id}
+                                        update={handleCount}
+                                    />
                                 </Modal.Content>
                             </Modal>
                         </Grid.Column>
