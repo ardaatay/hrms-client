@@ -5,17 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "semantic-ui-css/semantic.min.css";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from 'react-redux';
-import { configureStore } from './store/configureStore';
-import "react-toastify/dist/ReactToastify.min.css"
+import { Provider } from "react-redux";
+import { configureStore } from "./store/configureStore";
+import "react-toastify/dist/ReactToastify.min.css";
 
-const store = configureStore()
+const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>,
     document.getElementById("root")
 );

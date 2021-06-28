@@ -19,7 +19,7 @@ function App() {
         <div>
             <ToastContainer position="bottom-right" />
             <Route exact path="/">
-                <Redirect to="/jobseeker" />{" "}
+                <Redirect to="/jobseeker" />
             </Route>
             <CustomerRoute exact path="/customer" component={CustomerMain} />
             <JobSeekerRoute exact path="/jobseeker" component={JobSeekerMain} />

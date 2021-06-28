@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
-import { Container, Item } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Container, Item, Icon } from "semantic-ui-react";
 import ResumeService from "../../../services/resumeService";
 
 export default function ResumesList() {
@@ -20,14 +20,12 @@ export default function ResumesList() {
                 <Item.Group>
                     {resumes.map((resume) => (
                         <Item key={resume.id}>
-                            <Item.Image
-                                size="tiny"
-                                src="https://aday-asset.mncdn.com/img/firma-logosuz.png"
-                            />
-
+                            <Icon name="file" size="big" />
                             <Item.Content>
                                 <Item.Header>
-                                    <Link to={`/jobseeker/resumes/details/${resume.id}`}>
+                                    <Link
+                                        to={`/jobseeker/resumes/details/${resume.id}`}
+                                    >
                                         {resume.name}
                                     </Link>
                                 </Item.Header>

@@ -1,11 +1,13 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import JobSeekerNavi from "./JobSeekerNavi";
+import JobSeekerFooter from "./JobSeekerFooter";
 
 const JobSeekerDashboard = ({ children }) => (
     <div>
         <JobSeekerNavi />
         {children}
+        <JobSeekerFooter />
     </div>
 );
 

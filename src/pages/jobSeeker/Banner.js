@@ -13,7 +13,6 @@ import {
 import PositionService from "../../services/positionService";
 
 export default function Banner() {
-
     const [positions, setPositions] = useState([]);
 
     useEffect(() => {
@@ -21,10 +20,12 @@ export default function Banner() {
         positionService
             .getPositions()
             .then((result) => setPositions(result.data.data));
-    });
+    }, []);
 
-    const options=[]
-    positions.map((position,i)=>options.push({key:i,value:position.value,text:position.text}))
+    const options = [];
+    positions.map((position, i) =>
+        options.push({ key: i, value: position.value, text: position.text })
+    );
 
     return (
         <div>
@@ -52,7 +53,13 @@ export default function Banner() {
                                     <Icon name="file" />
                                     Add New Resume
                                 </Header>
-                                <Button as={NavLink} to="/jobseeker/resumes/add" primary>Create</Button>
+                                <Button
+                                    as={NavLink}
+                                    to="/jobseeker/resumes/add"
+                                    primary
+                                >
+                                    Create
+                                </Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

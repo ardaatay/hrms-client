@@ -4,10 +4,12 @@ const baseUrl = "http://localhost:8080/api";
 
 export default class ResumeService {
     postResume(resume) {
+        resume.jobSeekerId = 1;
+
         return axios({
             method: "post",
             url: baseUrl + "/resumes/add",
-            headers: { "content-type": "text/json" },
+            headers: {},
             data: resume,
         });
     }

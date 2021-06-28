@@ -1,80 +1,63 @@
 import React from "react";
-import { useFormik } from "formik";
-import { Button, Form, Container } from "semantic-ui-react";
+import { Formik, Form } from "formik";
+import { Button, Container, Header } from "semantic-ui-react";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
+import AtayTextInput from "../../../utilities/customFormControls/AtayTextInput";
 import ResumeService from "../../../services/resumeService";
-import AddExperience from "./AddExperience";
 
 export default function AddResume() {
-    let resume = {};
+    let history = useHistory();
 
-    const validate = (values) => {
-        const errors = {};
-        if (!values.name) {
-            errors.name = "Zorunlu";
-        } else if (values.name.length > 255) {
-            errors.name = "En fazla 255 karakter olabilir";
-        }
-
-        if (!values.description) {
-            errors.description = "Zorunlu";
-        } else if (values.description.length > 1000) {
-            errors.description = "En fazla 1000 karakter olabilir";
-        }
-
-        return errors;
+    const initialValues = {
+        name: "",
+        description: "",
     };
 
-    const formik = useFormik({
-        initialValues: {
-            name: "",
-            description: "",
-        },
-        validate,
-        onSubmit: (values) => {
-            let resumeService = new ResumeService();
-            resume = { name: values.name, description: values.description };
-            resumeService
-                .postResume(resume)
-                .then((result) => toast.success(result.data.message));
-        },
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required("Ad alanı zorunlu").max(255),
+        description: Yup.string().required("Açıklama alanı zorunlu").max(1000),
     });
 
     return (
         <div>
             <Container className="main">
-                <Form onSubmit={formik.handleSubmit}>
-                    <Form.Field>
-                        <label>Ad</label>
-                        <input
-                            id="name"
+                <Header as="h2">Özgeçmiş Ekle</Header>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={(values) => {
+                        let resumeService = new ResumeService();
+                        const resume = {
+                            name: values.name,
+                            description: values.description,
+                            jobSeekerId: 0,
+                        };
+                        resumeService
+                            .postResume(resume)
+                            .then(function (result) {
+                                toast.success(result.data.message);
+                                history.push("/jobseeker/resumes/list");
+                            });
+                    }}
+                >
+                    <Form className="ui form">
+                        <AtayTextInput
                             name="name"
-                            type="text"
                             placeholder="Ad"
-                            onChange={formik.handleChange}
-                            value={formik.values.name}
+                            label="Ad"
                         />
-                        {formik.errors.name ? (
-                            <div>{formik.errors.name}</div>
-                        ) : null}
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Ön Yazı</label>
-                        <textarea
-                            id="description"
+                        <AtayTextInput
                             name="description"
-                            onChange={formik.handleChange}
-                            value={formik.values.description}
+                            placeholder="Açıklama"
+                            label="Açıklama"
                         />
-                        {formik.errors.description ? (
-                            <div>{formik.errors.description}</div>
-                        ) : null}
-                    </Form.Field>
-                    <Button type="submit" primary>
-                        Kaydet
-                    </Button>
-                </Form>
-                <AddExperience/>
+                        <Button type="submit" primary>
+                            Kaydet
+                        </Button>
+                    </Form>
+                </Formik>
             </Container>
         </div>
     );

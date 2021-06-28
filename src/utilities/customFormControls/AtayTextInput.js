@@ -4,8 +4,6 @@ import { FormField, Label } from "semantic-ui-react";
 
 export default function AtayTextInput({ label, ...props }) {
     const [field, meta] = useField(props);
-    console.log(field);
-    console.log(meta);
     return (
         <FormField error={meta.touched && !!meta.error}>
             <label>

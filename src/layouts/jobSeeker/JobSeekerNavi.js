@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Container, Menu } from "semantic-ui-react";
 import JobSearch from "./JobSearch";
 import JobSeekerLogin from "./JobSeekerLogin";
@@ -10,12 +11,41 @@ export default function JobSeekerNavi() {
         <div>
             <Menu color="blue" inverted>
                 <Container>
-                    <Menu.Item>
-                        <img src={`${iconPath}avengers64px.png`} alt="logo" />
-                    </Menu.Item>
-                    <Menu.Item>
-                        <JobSearch />
-                    </Menu.Item>
+                    <Menu.Menu position="left">
+                        <Menu.Item>
+                            <img
+                                src={`${iconPath}avengers64px.png`}
+                                alt="logo"
+                            />
+                        </Menu.Item>
+                        <Menu.Item
+                            name="home"
+                            link
+                            as={Link}
+                            to="/jobseeker"
+                        >
+                            Job Search
+                        </Menu.Item>
+                        <Menu.Item
+                            name="resume_list"
+                            link
+                            as={Link}
+                            to="/jobseeker/resumes/list"
+                        >
+                            Resume List
+                        </Menu.Item>
+                        <Menu.Item
+                            name="resume_add"
+                            link
+                            as={Link}
+                            to="/jobseeker/resumes/add"
+                        >
+                            Resume Add
+                        </Menu.Item>
+                        <Menu.Item>
+                            <JobSearch />
+                        </Menu.Item>
+                    </Menu.Menu>
                     <Menu.Menu position="right">
                         <JobSeekerLogin />
                         <Menu.Item>
