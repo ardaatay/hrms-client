@@ -32,16 +32,16 @@ export default function Banner() {
             <Segment placeholder>
                 <Container>
                     <Grid columns={2} stackable textAlign="center">
-                        <Divider vertical>Or</Divider>
+                        <Divider vertical>Veya</Divider>
                         <Grid.Row verticalAlign="middle">
                             <Grid.Column>
                                 <Header icon>
                                     <Icon name="search" />
-                                    Find Position
+                                    İş Ara
                                 </Header>
 
                                 <Dropdown
-                                    placeholder="Select Position"
+                                    placeholder="Pozisyon Seç"
                                     fluid
                                     selection
                                     options={options}
@@ -51,14 +51,13 @@ export default function Banner() {
                             <Grid.Column>
                                 <Header icon>
                                     <Icon name="file" />
-                                    Add New Resume
                                 </Header>
                                 <Button
                                     as={NavLink}
-                                    to="/jobseeker/resumes/add"
+                                    to="/jobseeker/resume/add"
                                     primary
                                 >
-                                    Create
+                                    Özgeçmiş Ekle
                                 </Button>
                             </Grid.Column>
                         </Grid.Row>

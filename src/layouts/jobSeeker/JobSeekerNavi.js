@@ -24,23 +24,23 @@ export default function JobSeekerNavi() {
                             as={Link}
                             to="/jobseeker"
                         >
-                            Job Search
+                            İş Ara
                         </Menu.Item>
                         <Menu.Item
                             name="resume_list"
                             link
                             as={Link}
-                            to="/jobseeker/resumes/list"
+                            to="/jobseeker/resume/list"
                         >
-                            Resume List
+                            Cv Listem
                         </Menu.Item>
                         <Menu.Item
                             name="resume_add"
                             link
                             as={Link}
-                            to="/jobseeker/resumes/add"
+                            to="/jobseeker/resume/add"
                         >
-                            Resume Add
+                            Cv Ekle
                         </Menu.Item>
                         <Menu.Item>
                             <JobSearch />

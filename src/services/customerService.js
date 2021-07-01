@@ -1,16 +1,14 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/api/resumes";
+const baseUrl = "http://localhost:8080/api/customers";
 
-export default class ResumeService {
-    postResume(resume) {
-        resume.jobSeekerId = 1;
-
+export default class CustomerService {
+    postCustomer(customer) {
         return axios({
             method: "post",
             url: baseUrl + "/add",
             headers: {},
-            data: resume,
+            data: customer,
         });
     }
 

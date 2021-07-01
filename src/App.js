@@ -13,6 +13,9 @@ import WorkWayAdd from "./pages/systemPersonnel/workWay/WorkWayAdd";
 import AddResume from "./pages/jobSeeker/resume/AddResume";
 import ResumesList from "./pages/jobSeeker/resume/ResumesList";
 import ResumeDetails from "./pages/jobSeeker/resume/ResumeDetails";
+import JobList from "./pages/customer/job/JobList";
+import AddJob from "./pages/customer/job/AddJob";
+import AddCustomer from "./pages/customer/AddCustomer";
 
 function App() {
     return (
@@ -22,10 +25,13 @@ function App() {
                 <Redirect to="/jobseeker" />
             </Route>
             <CustomerRoute exact path="/customer" component={CustomerMain} />
+            <CustomerRoute exact path="/customer/signup" component={AddCustomer} />
+            <CustomerRoute exact path="/customer/job/list" component={JobList} />
+            <CustomerRoute exact path="/customer/job/add" component={AddJob} />
             <JobSeekerRoute exact path="/jobseeker" component={JobSeekerMain} />
-            <JobSeekerRoute exact path="/jobseeker/resumes/list" component={ResumesList} />
-            <JobSeekerRoute exact path="/jobseeker/resumes/details/:id" component={ResumeDetails} />
-            <JobSeekerRoute exact path="/jobseeker/resumes/add" component={AddResume} />
+            <JobSeekerRoute exact path="/jobseeker/resume/list" component={ResumesList} />
+            <JobSeekerRoute exact path="/jobseeker/resume/details/:id" component={ResumeDetails} />
+            <JobSeekerRoute exact path="/jobseeker/resume/add" component={AddResume} />
             <SystemPersonnelRoute
                 exact
                 path="/admin"

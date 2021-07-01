@@ -24,7 +24,7 @@ export default function ResumesList() {
                             <Item.Content>
                                 <Item.Header>
                                     <Link
-                                        to={`/jobseeker/resumes/details/${resume.id}`}
+                                        to={`/jobseeker/resume/details/${resume.id}`}
                                     >
                                         {resume.name}
                                     </Link>
