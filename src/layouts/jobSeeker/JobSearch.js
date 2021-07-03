@@ -1,10 +1,9 @@
 import React from 'react'
-import { Input } from 'semantic-ui-react'
 
 export default function JobSearch() {
     return (
         <div>
-            <Input icon='search' placeholder='Search...' />
+            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Button, Form, Message } from "semantic-ui-react";
 import { toast } from "react-toastify";
 
 import WorkWayService from "../../../services/workWayService";
@@ -35,7 +34,7 @@ export default function WorkWayAdd() {
 
     return (
         <div>
-            <Message
+            {/* <Message
                 attached
                 header="Çalışma Şekli"
                 content="Örnek: Full Time, Part Time"
@@ -59,7 +58,7 @@ export default function WorkWayAdd() {
                     ) : null}
                 </Form.Field>
                 <Button type="submit">Kaydet</Button>
-            </Form>
+            </Form> */}
         </div>
     );
 }

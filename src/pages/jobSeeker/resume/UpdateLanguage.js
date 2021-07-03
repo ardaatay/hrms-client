@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Modal, Header, Button, Icon, Item, Grid } from "semantic-ui-react";
 
 import LanguageService from "../../../services/languageService";
 import AddLanguage from "./AddLanguage";
@@ -26,7 +25,7 @@ export default function UpdateLanguage({ resumeId, update, languages }) {
 
     return (
         <div>
-            <Modal
+            {/* <Modal
                 closeIcon
                 open={openDeleteLanguage}
                 onClose={() => setOpenDeleteLanguage(false)}
@@ -118,7 +117,7 @@ export default function UpdateLanguage({ resumeId, update, languages }) {
                         </Item.Content>
                     </Item>
                 )}
-            </Item.Group>
+            </Item.Group> */}
         </div>
     );
 }

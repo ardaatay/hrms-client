@@ -1,11 +1,11 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Button, Container, Header } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-import AtayTextInput from "../../utilities/customFormControls/AtayTextInput"
+
 import CustomerService from "../../services/customerService";
+import FormikControl from "../../utilities/customFormControls/FormikControl";
 
 export default function AddCustomer() {
     let history = useHistory();
@@ -21,8 +21,14 @@ export default function AddCustomer() {
     };
 
     const validationSchema = Yup.object().shape({
-        email: Yup.string().email("Email uyumsuz").required("Email alanı zorunlu").max(255),
-        password: Yup.string().required("Şifre alanı zorunlu").min(6,"Şifre en az 6 karakter olmalı").max(255),
+        email: Yup.string()
+            .email("Email uyumsuz")
+            .required("Email alanı zorunlu")
+            .max(255),
+        password: Yup.string()
+            .required("Şifre alanı zorunlu")
+            .min(6, "Şifre en az 6 karakter olmalı")
+            .max(255),
         passwordConfirmation: Yup.string().oneOf(
             [Yup.ref("password")],
             "Şifreler uyumsuz"
@@ -33,67 +39,69 @@ export default function AddCustomer() {
         webSite: Yup.string().required("Website alanı zorunlu").max(255),
     });
 
+    const onSubmit = (values) => {
+        let customerService = new CustomerService();
+        customerService.postCustomer(values).then(function (result) {
+            toast.success(result.data.message);
+            history.push("/customer/login");
+        });
+    };
+
     return (
-        <div>
-            <Container className="main">
-                <Header as="h2">Şirket Kayıt</Header>
+        <div className="container">
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
-                        let customerService = new CustomerService();
-                        customerService
-                            .postCustomer(values)
-                            .then(function (result) {
-                                toast.success(result.data.message);
-                                history.push("/customer/login");
-                            });
-                    }}
+                    onSubmit={onSubmit}
                 >
                     <Form className="ui form">
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="email"
-                            placeholder="Email"
                             label="Email"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="password"
                             name="password"
-                            placeholder="Şifre"
                             label="Şifre"
-                            type="password"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="password"
                             name="passwordConfirmation"
-                            placeholder="Şifre Tekrar"
                             label="Şifre Tekrar"
-                            type="password"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="companyName"
-                            placeholder="Şirket Adı"
                             label="Şirket Adı"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="phone"
-                            placeholder="Telefonunuzu giriniz başında 0 olmadan."
                             label="Telefon"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="taxNumber"
-                            placeholder="Vergi numaranızı giriniz"
                             label="Vergi No"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="webSite"
-                            placeholder="Web site adresiniz"
                             label="Web Site"
                         />
-                        <Button type="submit" primary>
+                        <button type="submit" primary>
                             Kaydet
-                        </Button>
+                        </button>
                     </Form>
                 </Formik>
-            </Container>
         </div>
     );
 }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "semantic-ui-react";
 import PositionService from "../../../services/positionService";
 
 export default function PositionList() {
@@ -14,23 +13,21 @@ export default function PositionList() {
 
     return (
         <div>
-            <Table celled>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Value</Table.HeaderCell>
-                        <Table.HeaderCell>Text</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
+            <table className="table">
+                <thead></thead>
+                <tr>
+                    <th>Value</th>
+                    <th>Text</th>
+                </tr>
+                <tbody>
                     {positions.map((position) => (
-                        <Table.Row key={position.value}>
-                            <Table.Cell>{position.value}</Table.Cell>
-                            <Table.Cell>{position.text}</Table.Cell>
-                        </Table.Row>
+                        <tr key={position.value}>
+                            <td>{position.value}</td>
+                            <td>{position.text}</td>
+                        </tr>
                     ))}
-                </Table.Body>
-            </Table>
+                </tbody>
+            </table>
         </div>
     );
 }

@@ -1,62 +1,59 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Menu } from "semantic-ui-react";
-import JobSearch from "./JobSearch";
-import JobSeekerLogin from "./JobSeekerLogin";
 
 const iconPath = process.env.PUBLIC_URL + "/assets/";
 
 export default function JobSeekerNavi() {
     return (
         <div>
-            <Menu color="blue" inverted>
-                <Container>
-                    <Menu.Menu position="left">
-                        <Menu.Item>
-                            <img
-                                src={`${iconPath}avengers64px.png`}
-                                alt="logo"
-                            />
-                        </Menu.Item>
-                        <Menu.Item
-                            name="home"
-                            link
-                            as={Link}
-                            to="/jobseeker"
-                        >
-                            İş Ara
-                        </Menu.Item>
-                        <Menu.Item
-                            name="resume_list"
-                            link
-                            as={Link}
-                            to="/jobseeker/resume/list"
-                        >
-                            Cv Listem
-                        </Menu.Item>
-                        <Menu.Item
-                            name="resume_add"
-                            link
-                            as={Link}
-                            to="/jobseeker/resume/add"
-                        >
-                            Cv Ekle
-                        </Menu.Item>
-                        <Menu.Item>
-                            <JobSearch />
-                        </Menu.Item>
-                    </Menu.Menu>
-                    <Menu.Menu position="right">
-                        <JobSeekerLogin />
-                        <Menu.Item>
-                            <Button primary>Sign Up</Button>
-                        </Menu.Item>
-                        <Menu.Item>
-                            <Button primary>Sign In</Button>
-                        </Menu.Item>
-                    </Menu.Menu>
-                </Container>
-            </Menu>
+            <nav
+                className="navbar navbar-expand-lg navbar-light"
+                style={{ backgroundColor: "orange" }}
+            >
+                <div className="container">
+                    <Link to="/jobseeker" className="navbar-brand">
+                        <img
+                            src={`${iconPath}avengers64px.png`}
+                            alt=""
+                            width="30"
+                        />
+                    </Link>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div
+                        className="collapse navbar-collapse"
+                        id="navbarSupportedContent"
+                    >
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <Link
+                                    to="/jobseeker/resume/list"
+                                    className="nav-link"
+                                >
+                                    Özgeçmişlerim
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link
+                                    to="/jobseeker/resume/add"
+                                    className="nav-link"
+                                >
+                                    Özgeçmiş Ekle
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
     );
 }

@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { Button, Container, Header } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-
-import AtayTextInput from "../../../utilities/customFormControls/AtayTextInput";
-import AtayDropDown from "../../../utilities/customFormControls/AtayDropDown";
-import AtayDateTime from "../../../utilities/customFormControls/AtayDateTime";
+import { Button } from "react-bootstrap";
 
 import JobService from "../../../services/jobService";
 import CityService from "../../../services/cityService";
 import PositionService from "../../../services/positionService";
 import WorkWayService from "../../../services/workWayService";
 import JobTypeService from "../../../services/jobTypeService";
+
+import FormikControl from "../../../utilities/customFormControls/FormikControl";
 
 export default function AddJob() {
     let history = useHistory();
@@ -30,30 +28,41 @@ export default function AddJob() {
         minSalary: 0,
         maxSalary: 0,
         count: 0,
-        cityId: 0,
-        positionId: 0,
-        workWayId: 0,
-        jobTypeId: 0,
+        cityId: "",
+        positionId: "",
+        workWayId: "",
+        jobTypeId: "",
         lastDate: null,
     };
 
     const validationSchema = Yup.object().shape({
         jobTitle: Yup.string()
-            .required("İş adı alanı zorunlu")
+            .required("Zorunlu")
             .max(255, "En fazla 255 karakter olmalıdır"),
         description: Yup.string()
-            .required("Açıklama alanı zorunlu")
+            .required("Zorunlu")
             .max(255, "En fazla 255 karakter olmalıdır"),
         requirements: Yup.string()
-            .required("Açıklamalar")
+            .required("Zorunlu")
             .max(255, "En fazla 255 karakter olmalıdır"),
-        minSalary: Yup.number(),
-        maxSalary: Yup.number(),
-        count: Yup.number(),
-        lastDate: Yup.date()
-            .required("En son başvuru tarihi zorunlu")
-            .nullable(),
+        minSalary: Yup.number().required("Zorunlu"),
+        maxSalary: Yup.number().required("Zorunlu"),
+        count: Yup.number().required("Zorunlu"),
+        cityId: Yup.string().required("Zorunlu"),
+        positionId: Yup.string().required("Zorunlu"),
+        workWayId: Yup.string().required("Zorunlu"),
+        jobTypeId: Yup.string().required("Zorunlu"),
+        lastDate: Yup.date().required("Zorunlu").nullable(),
     });
+
+    const onSubmit = (values) => {
+        const job = JSON.parse(JSON.stringify(values));
+        let jobService = new JobService();
+        jobService.postJob(job).then(function (result) {
+            toast.success(result.data.message);
+            history.push("/customer/job/list");
+        });
+    };
 
     useEffect(() => {
         let cityService = new CityService();
@@ -75,12 +84,12 @@ export default function AddJob() {
             .then((result) => setJobTypes(result.data.data));
     }, []);
 
-    const optionsCity = [];
+    const optionsCity = [{ key: 0, value: "", text: "Seçiniz" }];
     cities.map((city) =>
         optionsCity.push({ key: city.id, value: city.id, text: city.name })
     );
 
-    const optionsPosition = [];
+    const optionsPosition = [{ key: 0, value: "", text: "Seçiniz" }];
     positions.map((position) =>
         optionsPosition.push({
             key: position.id,
@@ -98,7 +107,7 @@ export default function AddJob() {
         })
     );
 
-    const optionsJobType = [];
+    const optionsJobType = [{ key: 0, value: "", text: "Seçiniz" }];
     jobTypes.map((jobType) =>
         optionsJobType.push({
             key: jobType.id,
@@ -109,95 +118,87 @@ export default function AddJob() {
 
     return (
         <div>
-            <Container className="main">
-                <Header as="h2">İş Başvurusu Ekle</Header>
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    handleChange
-                    onSubmit={(values) => {
-                        const job = JSON.parse(JSON.stringify(values));
-                        let jobService = new JobService();
-                        jobService.postJob(job).then(function (result) {
-                            toast.success(result.data.message);
-                            history.push("/customer/job/list");
-                        });
-                    }}
-                >
-                    <Form className="ui form">
-                        <AtayTextInput
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+            >
+                {(
+                    formik
+                ) => (
+                    <Form noValidate>
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="jobTitle"
-                            placeholder="İş adı"
                             label="İş Adı"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="textarea"
                             name="description"
-                            placeholder="Açıklama"
                             label="Açıklama"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="textarea"
                             name="requirements"
-                            placeholder="Gereklilikler"
                             label="Gereklilikler"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="minSalary"
-                            placeholder="En düşük maaş"
                             label="En Düşük Maaş"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="maxSalary"
-                            placeholder="En yüksek maaş"
                             label="En Yüksek Maaş"
                         />
-                        <AtayTextInput
+                        <FormikControl
+                            control="input"
+                            type="text"
                             name="count"
-                            placeholder="Alınacak personel sayısı"
-                            label="Personel Sayısı"
+                            label="Alınacak Personel Sayısı"
                         />
-                        <AtayDropDown
+                        <FormikControl
+                            control="select"
                             label="Şehir"
                             name="cityId"
-                            placeholder="Seçiniz"
-                            fluid
-                            selection
                             options={optionsCity}
                         />
-                        <AtayDropDown
+                        <FormikControl
+                            control="select"
                             label="Pozisyon"
                             name="positionId"
-                            placeholder="Seçiniz"
-                            fluid
-                            selection
                             options={optionsPosition}
                         />
-                        <AtayDropDown
+                        <FormikControl
+                            control="radio"
                             label="Çalışma Şekli"
                             name="workWayId"
-                            placeholder="Seçiniz"
-                            fluid
-                            selection
                             options={optionsWorkWay}
                         />
-                        <AtayDropDown
+                        <FormikControl
+                            control="select"
                             label="İş Türü"
                             name="jobTypeId"
-                            placeholder="Seçiniz"
-                            fluid
-                            selection
                             options={optionsJobType}
                         />
+
+                        {/*
+                        
                         <AtayDateTime
                             label="Son Başvuru Tarihi"
                             placeholderText="Son Başvuru Tarihini Giriniz..."
                             name="lastDate"
-                        />
-                        <Button type="submit" primary>
+                        /> */}
+                        <Button variant="primary" type="submit">
                             Kaydet
                         </Button>
                     </Form>
-                </Formik>
-            </Container>
+                )}
+            </Formik>
         </div>
     );
 }

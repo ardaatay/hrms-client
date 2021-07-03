@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Button, Container, Header } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-import AtayTextInput from "../../../utilities/customFormControls/AtayTextInput";
+
+import FormikControl from "../../../utilities/customFormControls/FormikControl";
 import ResumeService from "../../../services/resumeService";
 
 export default function AddResume() {
@@ -15,50 +15,50 @@ export default function AddResume() {
         description: "",
     };
 
-    const validationSchema = Yup.object().shape({
+    const validationSchema = Yup.object({
         name: Yup.string().required("Ad alanı zorunlu").max(255),
         description: Yup.string().required("Açıklama alanı zorunlu").max(1000),
     });
 
+    const onSubmit = (values) => {
+        let resumeService = new ResumeService();
+        const resume = {
+            name: values.name,
+            description: values.description,
+            jobSeekerId: 0,
+        };
+        resumeService.postResume(resume).then(function (result) {
+            toast.success(result.data.message);
+            history.push("/jobseeker/resume/list");
+        });
+    };
+
     return (
-        <div>
-            <Container className="main">
-                <Header as="h2">Özgeçmiş Ekle</Header>
+        <div className="container">
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
-                        let resumeService = new ResumeService();
-                        const resume = {
-                            name: values.name,
-                            description: values.description,
-                            jobSeekerId: 0,
-                        };
-                        resumeService
-                            .postResume(resume)
-                            .then(function (result) {
-                                toast.success(result.data.message);
-                                history.push("/jobseeker/resumes/list");
-                            });
-                    }}
+                    onSubmit={onSubmit}
                 >
-                    <Form className="ui form">
-                        <AtayTextInput
-                            name="name"
-                            placeholder="Ad"
-                            label="Ad"
-                        />
-                        <AtayTextInput
-                            name="description"
-                            placeholder="Açıklama"
-                            label="Açıklama"
-                        />
-                        <Button type="submit" primary>
-                            Kaydet
-                        </Button>
-                    </Form>
+                    {(formik) => (
+                        <Form className="ui form">
+                            <FormikControl
+                                control="input"
+                                type="text"
+                                name="name"
+                                label="Ad"
+                            />
+                            <FormikControl
+                                control="textarea"
+                                name="description"
+                                label="Açıklama"
+                            />
+                            <button type="submit" className="btn btn-primary">
+                                Kaydet
+                            </button>
+                        </Form>
+                    )}
                 </Formik>
-            </Container>
         </div>
     );
 }

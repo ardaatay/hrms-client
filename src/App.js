@@ -25,13 +25,33 @@ function App() {
                 <Redirect to="/jobseeker" />
             </Route>
             <CustomerRoute exact path="/customer" component={CustomerMain} />
-            <CustomerRoute exact path="/customer/signup" component={AddCustomer} />
-            <CustomerRoute exact path="/customer/job/list" component={JobList} />
+            <CustomerRoute
+                exact
+                path="/customer/signup"
+                component={AddCustomer}
+            />
+            <CustomerRoute
+                exact
+                path="/customer/job/list"
+                component={JobList}
+            />
             <CustomerRoute exact path="/customer/job/add" component={AddJob} />
             <JobSeekerRoute exact path="/jobseeker" component={JobSeekerMain} />
-            <JobSeekerRoute exact path="/jobseeker/resume/list" component={ResumesList} />
-            <JobSeekerRoute exact path="/jobseeker/resume/details/:id" component={ResumeDetails} />
-            <JobSeekerRoute exact path="/jobseeker/resume/add" component={AddResume} />
+            <JobSeekerRoute
+                exact
+                path="/jobseeker/resume/list"
+                component={ResumesList}
+            />
+            <JobSeekerRoute
+                exact
+                path="/jobseeker/resume/details/:id"
+                component={ResumeDetails}
+            />
+            <JobSeekerRoute
+                exact
+                path="/jobseeker/resume/add"
+                component={AddResume}
+            />
             <SystemPersonnelRoute
                 exact
                 path="/admin"

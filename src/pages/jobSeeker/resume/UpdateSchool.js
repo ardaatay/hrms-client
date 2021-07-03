@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Modal, Header, Button, Icon, Item, Grid } from "semantic-ui-react";
 
 import SchoolService from "../../../services/schoolService";
 import AddSchool from "./AddSchool";
@@ -26,7 +25,7 @@ export default function UpdateSchool({ resumeId, update, schools }) {
 
     return (
         <div>
-            <Modal
+            {/* <Modal
                 closeIcon
                 open={openDeleteSchool}
                 onClose={() => setOpenDeleteSchool(false)}
@@ -126,7 +125,7 @@ export default function UpdateSchool({ resumeId, update, schools }) {
                         </Item.Content>
                     </Item>
                 )}
-            </Item.Group>
+            </Item.Group> */}
         </div>
     );
 }

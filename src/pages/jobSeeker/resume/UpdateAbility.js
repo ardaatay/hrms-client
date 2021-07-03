@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Modal, Header, Button, Icon, Item, Grid } from "semantic-ui-react";
 
 import AbilityService from "../../../services/abilityService";
+import AtayModal from "../../../utilities/customComponents/AtayModal";
 import AddAbility from "./AddAbility";
 
 export default function UpdateAbility({ resumeId, update, abilities }) {
@@ -13,6 +13,7 @@ export default function UpdateAbility({ resumeId, update, abilities }) {
     const handleDeleteAbility = (id) => {
         setOpenDeleteAbility(true);
         setAbilityId(id);
+        <AtayModal title="test" openModal={AddAbility}/>
     };
 
     const handleDeleteSubmitAbility = () => {
@@ -25,31 +26,45 @@ export default function UpdateAbility({ resumeId, update, abilities }) {
     };
 
     return (
-        <div>
-            <Modal
-                closeIcon
-                open={openDeleteAbility}
-                onClose={() => setOpenDeleteAbility(false)}
-                onOpen={() => setOpenDeleteAbility(true)}
-            >
-                <Header icon="trash" content="Yetenek Sil" />
-                <Modal.Content>
-                    <p>Bu yeteneğinizi silmek istediğinize emin misiniz?</p>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button
-                        color="red"
-                        onClick={() => setOpenDeleteAbility(false)}
-                    >
-                        <Icon name="trash" /> Hayır
-                    </Button>
-                    <Button color="green" onClick={handleDeleteSubmitAbility}>
-                        <Icon name="checkmark" />
-                        Evet
-                    </Button>
-                </Modal.Actions>
-            </Modal>
-            <Grid>
+        <div className="mt-3">
+            <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Yeteneklerim</h5>
+                    <div className="row">
+                        {abilities != null && abilities.length !== 0 ? (
+                            abilities.map((ability) => (
+                                <div className="col-sm-6 mt-3" key={ability.id}>
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <h5 className="card-title">
+                                                {ability.name}
+                                            </h5>
+                                            <h6 className="card-subtitle mb-2 text-muted">
+                                                Seviye: {ability.description}
+                                            </h6>
+                                            <button
+                                                className="btn btn-danger btn-sm"
+                                                onClick={() =>
+                                                    handleDeleteAbility(
+                                                        ability.id
+                                                    )
+                                                }
+                                            >
+                                                Sil
+                                            </button>                                    
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="card-text">
+                                Hiç yenetek girmemişsiniz...
+                            </p>
+                        )}
+                    </div>
+                </div>
+            </div>
+            {/* <Grid>
                 <Grid.Column floated="left" width={5}>
                     <h3>Yeteneklerim</h3>
                 </Grid.Column>
@@ -115,7 +130,7 @@ export default function UpdateAbility({ resumeId, update, abilities }) {
                         </Item.Content>
                     </Item>
                 )}
-            </Item.Group>
+            </Item.Group> */}
         </div>
     );
 }

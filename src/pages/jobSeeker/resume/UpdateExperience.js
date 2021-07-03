@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Modal, Header, Button, Icon, Item, Grid } from "semantic-ui-react";
 
 import ExperienceService from "../../../services/experienceService";
 import AddExperience from "./AddExperience";
@@ -27,7 +26,7 @@ export default function UpdateExperience({ resumeId, update, experiences }) {
     };
     return (
         <div>
-            <Modal
+            {/* <Modal
                 closeIcon
                 open={openDeleteExperience}
                 onClose={() => setOpenDeleteExperience(false)}
@@ -52,8 +51,8 @@ export default function UpdateExperience({ resumeId, update, experiences }) {
                         Evet
                     </Button>
                 </Modal.Actions>
-            </Modal>
-            <Grid>
+            </Modal> */}
+            {/* <Grid>
                 <Grid.Column floated="left" width={5}>
                     <h3>Deneyimlerim</h3>
                 </Grid.Column>
@@ -130,7 +129,7 @@ export default function UpdateExperience({ resumeId, update, experiences }) {
                         </Item.Content>
                     </Item>
                 )}
-            </Item.Group>
+            </Item.Group> */}
         </div>
     );
 }

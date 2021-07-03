@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Button } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import AtayTextInput from "../../../utilities/customFormControls/AtayTextInput";
+
 import ExperienceService from "../../../services/experienceService";
+import FormikControl from "../../../utilities/customFormControls/FormikControl";
 
 export default function AddExperience({ resumeId, update }) {
     const initialValues = {
@@ -20,45 +20,59 @@ export default function AddExperience({ resumeId, update }) {
         startYear: Yup.number().required("Başlangıç yılı zorunlu"),
     });
 
+    const onSubmit = (values) => {
+        let experienceService = new ExperienceService();
+        const experience = {
+            name: values.name,
+            position: values.position,
+            startYear: values.startYear,
+            finishYear: values.finishYear,
+            resumeId: resumeId,
+        };
+        experienceService.postExperience(experience).then(function (result) {
+            toast.success(result.data.message);
+            update();
+        });
+    };
+
     return (
         <div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                    let experienceService = new ExperienceService();
-                    const experience = {
-                        name: values.name,
-                        position: values.position,
-                        startYear: values.startYear,
-                        finishYear: values.finishYear,
-                        resumeId: resumeId,
-                    };
-                    experienceService
-                        .postExperience(experience)
-                        .then(function (result) {
-                            toast.success(result.data.message);
-                            update();                            
-                        });
-                }}
+                onSubmit={onSubmit}
             >
-                <Form className="ui form">
-                    <AtayTextInput name="name" placeholder="Ad" label="Ad" />
-                    <AtayTextInput name="position" placeholder="Pozisyon" label="Pozisyon" />
-                    <AtayTextInput
-                        name="startYear"
-                        placeholder="Başlangıç Yılı"
-                        label="Başlangıç Yılı"
-                    />
-                    <AtayTextInput
-                        name="finishYear"
-                        placeholder="Ayrılış Yılı"
-                        label="Ayrılış Yılı"
-                    />
-                    <Button type="submit" primary>
-                        Kaydet
-                    </Button>
-                </Form>
+                {(formik) => (
+                    <Form className="ui form">
+                        <FormikControl
+                            control="input"
+                            type="text"
+                            name="name"
+                            label="Ad"
+                        />
+                        <FormikControl
+                            control="input"
+                            type="text"
+                            name="position"
+                            label="Pozisyon"
+                        />
+                        <FormikControl
+                            control="input"
+                            type="text"
+                            name="startYear"
+                            label="Başlangıç Yılı"
+                        />
+                        <FormikControl
+                            control="input"
+                            type="text"
+                            name="finishYear"
+                            label="Ayrılış Yılı"
+                        />
+                        <button type="submit" className="btn btn-primary">
+                            Kaydet
+                        </button>
+                    </Form>
+                )}
             </Formik>
         </div>
     );

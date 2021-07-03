@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Item, Divider } from "semantic-ui-react";
 
 import ResumeService from "../../../services/resumeService";
 import UpdateAbility from "./UpdateAbility";
@@ -28,56 +27,43 @@ export default function ResumeDetails() {
     }
 
     return (
-        <div>
-            <Container className="main">
-                <Item.Group>
-                    <Item>
-                        <Item.Content>
-                            <Item.Header>
-                                <h3>{resume.name}</h3>
-                            </Item.Header>
-                            <Item.Meta>
-                                <h5>Yükleme Tarihi: {resume.postedDate}</h5>
-                            </Item.Meta>
-                            <Divider />
-                            <Item.Description>
-                                <h3>Ön Yazı</h3>
-                                <p>{resume.description}</p>
-                            </Item.Description>
-                        </Item.Content>
-                    </Item>
-                    {/* -------------Yetenek--------------- */}
-                    <Divider />
-                    <UpdateAbility
-                        resumeId={id}
-                        update={handleCount}
-                        abilities={resume.abilities}
-                    />
-                    {/* -------------Deneyim--------------- */}
-                    <Divider />
-                    <UpdateExperience
-                        resumeId={id}
-                        update={handleCount}
-                        experiences={resume.experiences}
-                    />
-
-                    {/* -------------Okul--------------- */}
-                    <Divider />
-                    <UpdateSchool
-                        resumeId={id}
-                        update={handleCount}
-                        schools={resume.schools}
-                    />
-
-                    {/* -------------Diller--------------- */}
-                    <Divider />
-                    <UpdateLanguage
-                        resumeId={id}
-                        update={handleCount}
-                        languages={resume.languages}
-                    />
-                </Item.Group>
-            </Container>
+        <div className="container mt-3">
+            <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">{resume.name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                        Yükleme Tarihi: {resume.postedDate}
+                    </h6>
+                    <p className="card-text mt-3">
+                        <b>Ön Yazı </b>
+                        <hr />
+                        {resume.description}
+                    </p>
+                </div>
+            </div>
+            <UpdateAbility
+                resumeId={id}
+                update={handleCount}
+                abilities={resume.abilities}
+            />
+            {/* -------------Deneyim--------------- */}
+            <UpdateExperience
+                resumeId={id}
+                update={handleCount}
+                experiences={resume.experiences}
+            />
+            {/* -------------Okul--------------- */}
+            <UpdateSchool
+                resumeId={id}
+                update={handleCount}
+                schools={resume.schools}
+            />
+            {/* -------------Diller--------------- */}
+            <UpdateLanguage
+                resumeId={id}
+                update={handleCount}
+                languages={resume.languages}
+            />
         </div>
     );
 }

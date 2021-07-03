@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Item, Icon } from "semantic-ui-react";
+
 import ResumeService from "../../../services/resumeService";
 
 export default function ResumesList() {
@@ -15,31 +15,30 @@ export default function ResumesList() {
             .then((result) => getResumes(result.data.data));
     }, [jobSeekerId]);
     return (
-        <div>
-            <Container className="main">
-                <Item.Group>
-                    {resumes.map((resume) => (
-                        <Item key={resume.id}>
-                            <Icon name="file" size="big" />
-                            <Item.Content>
-                                <Item.Header>
-                                    <Link
-                                        to={`/jobseeker/resume/details/${resume.id}`}
-                                    >
-                                        {resume.name}
-                                    </Link>
-                                </Item.Header>
-                                <Item.Description>
-                                    <p>{resume.description}</p>
-                                </Item.Description>
-                                <Item.Extra>
+        <div className="container mt-3">
+            <div className="row row-cols-1 row-cols-md-2 g-4">
+                {resumes.map((resume) => (
+                    <div key={resume.id} className="col">
+                        <div className="card">
+                            <div className="card-body">
+                                <h5 className="card-title">{resume.name}</h5>
+                                <p className="card-text">
+                                    {resume.description}
+                                </p>
+                                <p className="card-text">
                                     Yükleme Tarihi: {resume.postedDate}
-                                </Item.Extra>
-                            </Item.Content>
-                        </Item>
-                    ))}
-                </Item.Group>
-            </Container>
+                                </p>
+                                <Link
+                                    to={`/jobseeker/resume/details/${resume.id}`}
+                                    className="btn btn-primary stretched-link"
+                                >
+                                    Detaylar
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
